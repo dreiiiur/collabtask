@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID from Firebase Auth." },
+        "displayName": { "type": "string", "description": "User's full name." },
+        "email": { "type": "string", "format": "email", "description": "User's email address." },
+        "photoURL": { "type": "string", "description": "URL to the user's profile picture." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user profile was created." }
+      },
+      "required": ["uid", "displayName", "email"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "A project containing multiple tasks.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique project ID." },
+        "name": { "type": "string", "description": "Name of the project." },
+        "description": { "type": "string", "description": "Description of the project." },
+        "ownerId": { "type": "string", "description": "UID of the project owner." },
+        "members": { "type": "array", "items": { "type": "string" }, "description": "List of UIDs of project members." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the project was created." }
+      },
+      "required": ["name", "ownerId", "members"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A specific task within a project.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique task ID." },
+        "projectId": { "type": "string", "description": "ID of the parent project." },
+        "title": { "type": "string", "description": "Title of the task." },
+        "description": { "type": "string", "description": "Detailed description of the task." },
+        "status": { "type": "string", "enum": ["todo", "in-progress", "done"], "description": "Current status of the task." },
+        "priority": { "type": "string", "enum": ["low", "medium", "high"], "description": "Priority level." },
+        "assigneeId": { "type": "string", "description": "UID of the user assigned to this task." },
+        "dueDate": { "type": "string", "format": "date-time", "description": "When the task is due." },
+        "createdBy": { "type": "string", "description": "UID of the user who created the task." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the task was created." }
+      },
+      "required": ["projectId", "title", "status", "priority", "createdBy"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "User", "description": "User profiles." },
+    "/projects/{projectId}": { "schema": "Project", "description": "Project groups." },
+    "/tasks/{taskId}": { "schema": "Task", "description": "Task items." }
+  }
+}

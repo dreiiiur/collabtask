@@ -1,0 +1,5 @@
+{
+  "name": "CollabTask",
+  "description": "A full-stack collaborative task management system for production teams, featuring real-time updates and team sharing.",
+  "requestFramePermissions": []
+}
